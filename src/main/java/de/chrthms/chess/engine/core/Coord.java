@@ -1,3 +1,21 @@
+/*
+ *    ct-chess-engine, a chess engine playing and evaluating chess moves.
+ *    Copyright (C) 2016-2017 Christian Thomas
+ *
+ *    This program ct-chess-engine is free software: you can redistribute it and/or modify
+ *    it under the terms of the GNU General Public License as published by
+ *    the Free Software Foundation, either version 3 of the License, or
+ *    (at your option) any later version.
+ *
+ *    This program is distributed in the hope that it will be useful,
+ *    but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *    GNU General Public License for more details.
+ *
+ *    You should have received a copy of the GNU General Public License
+ *    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
 package de.chrthms.chess.engine.core;
 
 import java.io.Serializable;
@@ -6,142 +24,142 @@ import de.chrthms.chess.engine.exceptions.ChessEngineException;
 
 public class Coord implements Serializable {
 
-	private final String x;
-	private final String y;
+    private final String x;
+    private final String y;
 
-	private void validate() {
-		// TODO make it more robust: is x a..h? is y a number 1..8?  
-	}
-	
-	public Coord(String coord) {
-		if (coord.length() != 2) {
-			throw new ChessEngineException("Given coord = " + coord + " is wrong! Coord like a5 or b7 are expected");
-		}
-		
-		char x = coord.charAt(0);
-		char y = coord.charAt(1);
-	
-		this.x = String.valueOf(x);
-		this.y = String.valueOf(y);
-		validate();
-	}
-	
-	public Coord(String x, String y) {
-		this.x = x;
-		this.y = y;
-		validate();
-	}
-	
-	public Coord(int x, int y) {
-		switch(x) {
-		case 1:
-			this.x = "a";
-			break;
-		case 2:
-			this.x = "b";
-			break;
-		case 3:
-			this.x = "c";
-			break;
-		case 4:
-			this.x = "d";
-			break;
-		case 5:
-			this.x = "e";
-			break;
-		case 6:
-			this.x = "f";
-			break;
-		case 7:
-			this.x = "g";
-			break;
-		case 8:
-			this.x = "h";
-			break;
-		default:
-			this.x = "";
-		}
-		
-		this.y = String.valueOf(y);
-		validate();
-	}
+    private void validate() {
+        // TODO make it more robust: is x a..h? is y a number 1..8?
+    }
 
-	public String getX() {
-		return x;
-	}
+    public Coord(String coord) {
+        if (coord.length() != 2) {
+            throw new ChessEngineException("Given coord = " + coord + " is wrong! Coord like a5 or b7 are expected");
+        }
 
-	public String getY() {
-		return y;
-	}
+        char x = coord.charAt(0);
+        char y = coord.charAt(1);
 
-	public int getNumX() {
-		switch(getX()) {
-		case "a":
-			return 1;
-		case "b":
-			return 2;
-		case "c":
-			return 3;
-		case "d":
-			return 4;
-		case "e":
-			return 5;
-		case "f":
-			return 6;
-		case "g":
-			return 7;
-		case "h":
-			return 8;
-		}
-		
-		return -1;
-	}
+        this.x = String.valueOf(x);
+        this.y = String.valueOf(y);
+        validate();
+    }
 
-	public int getNumY() {
-		return Integer.valueOf(getY());
-	}
-	
-	public String getStrCoord() {
-		return new StringBuilder()
-				.append(getX())
-				.append(getY())
-				.toString();
-	}
+    public Coord(String x, String y) {
+        this.x = x;
+        this.y = y;
+        validate();
+    }
 
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((x == null) ? 0 : x.hashCode());
-		result = prime * result + ((y == null) ? 0 : y.hashCode());
-		return result;
-	}
+    public Coord(int x, int y) {
+        switch (x) {
+            case 1:
+                this.x = "a";
+                break;
+            case 2:
+                this.x = "b";
+                break;
+            case 3:
+                this.x = "c";
+                break;
+            case 4:
+                this.x = "d";
+                break;
+            case 5:
+                this.x = "e";
+                break;
+            case 6:
+                this.x = "f";
+                break;
+            case 7:
+                this.x = "g";
+                break;
+            case 8:
+                this.x = "h";
+                break;
+            default:
+                this.x = "";
+        }
 
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Coord other = (Coord) obj;
-		if (x == null) {
-			if (other.x != null)
-				return false;
-		} else if (!x.equals(other.x))
-			return false;
-		if (y == null) {
-			if (other.y != null)
-				return false;
-		} else if (!y.equals(other.y))
-			return false;
-		return true;
-	}
+        this.y = String.valueOf(y);
+        validate();
+    }
 
-	@Override
-	public String toString() {
-		return "Coord [x=" + x + ", y=" + y + "]";
-	}
-	
+    public String getX() {
+        return x;
+    }
+
+    public String getY() {
+        return y;
+    }
+
+    public int getNumX() {
+        switch (getX()) {
+            case "a":
+                return 1;
+            case "b":
+                return 2;
+            case "c":
+                return 3;
+            case "d":
+                return 4;
+            case "e":
+                return 5;
+            case "f":
+                return 6;
+            case "g":
+                return 7;
+            case "h":
+                return 8;
+        }
+
+        return -1;
+    }
+
+    public int getNumY() {
+        return Integer.valueOf(getY());
+    }
+
+    public String getStrCoord() {
+        return new StringBuilder()
+                .append(getX())
+                .append(getY())
+                .toString();
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((x == null) ? 0 : x.hashCode());
+        result = prime * result + ((y == null) ? 0 : y.hashCode());
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        Coord other = (Coord) obj;
+        if (x == null) {
+            if (other.x != null)
+                return false;
+        } else if (!x.equals(other.x))
+            return false;
+        if (y == null) {
+            if (other.y != null)
+                return false;
+        } else if (!y.equals(other.y))
+            return false;
+        return true;
+    }
+
+    @Override
+    public String toString() {
+        return "Coord [x=" + x + ", y=" + y + "]";
+    }
+
 }

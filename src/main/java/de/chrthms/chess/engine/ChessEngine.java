@@ -48,8 +48,8 @@ public interface ChessEngine {
 	/**
 	 * Only relevant for the pawn transformation procedure
 	 * 
-	 * @param handle
-	 * @param figureType
+	 * @param currentMoveResult
+	 * @param newFigureType
 	 * @return
 	 * @throws ChessEngineException
 	 */

@@ -26,11 +26,6 @@ import java.util.Arrays;
  *
  * @author Christian Thomas
  */
-
-/**
- * @author p0514551
- *
- */
 public class GameData implements Serializable {
 
     private byte[] handle;

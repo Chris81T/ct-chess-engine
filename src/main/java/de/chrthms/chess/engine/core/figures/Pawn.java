@@ -60,24 +60,21 @@ public class Pawn extends AbstractFigure {
         int yMul = 0;
 
         /**
-         * is needed for a checkup. Only if this pawn is set to folloing 
-         * defined value (check the switch), an en passant checkup is 
+         * is needed for a checkup. Only if this pawn is set to following
+         * defined value (check the switch), an en passant checkup is
          * relevant.
          */
-        int yEnPassant = 0;
 
         switch (figure.getColorType()) {
             case ColorType.BLACK:
                 yMul = -1;
-                yEnPassant = 4;
                 break;
             case ColorType.WHITE:
                 yMul = 1;
-                yEnPassant = 5;
         }
 
-        Field fieldForward = getBoard().getField(handle, x, y + 1 * yMul);
-        Field twoFieldsForward = getBoard().getField(handle, x, y + 2 * yMul);
+        Field fieldForward = getBoard().getField(handle, x, y + 1*yMul);
+        Field twoFieldsForward = getBoard().getField(handle, x, y + 2*yMul);
 
         /**
          * first check, if one field forward is free
@@ -93,8 +90,8 @@ public class Pawn extends AbstractFigure {
         /**
          * can the pawn attack some enemy figures?
          */
-        Field fieldForwardLeft = getBoard().getField(handle, x - 1, y + 1 * yMul);
-        Field fieldForwardRight = getBoard().getField(handle, x + 1, y + 1 * yMul);
+        Field fieldForwardLeft = getBoard().getField(handle, x-1, y + 1*yMul);
+        Field fieldForwardRight = getBoard().getField(handle, x+1, y + 1*yMul);
         checkForwardLeftOrRightField(figure, fieldForwardLeft, prePossibleMoves);
         checkForwardLeftOrRightField(figure, fieldForwardRight, prePossibleMoves);
 
@@ -108,20 +105,51 @@ public class Pawn extends AbstractFigure {
          * this will check, if the last moved enemy figure has moved two fields forward. The from coordinate is known.
          * So simply equal it with y = 2 or 7 according to the color of the figure
          */
-        if (y == yEnPassant &&
-                lastMoveResult != null &&
-                lastMoveResult.getMovedFigure().isEnemyFigureOf(figure) &&
-                lastMoveResult.getMovedFigure().getFigureType() == FigureType.PAWN &&
-                lastMoveResult.getFromField().getNumY() == yEnPassant + yMul * 2 && (
-                lastMoveResult.getToField().getNumX() + 1 == x ||
-                        lastMoveResult.getToField().getNumX() - 1 == x
-        )) {
-            Field enPassantResultField = getBoard().getField(handle, lastMoveResult.getToField().getNumX(), y + 1 * yMul);
+        if (isEnPassantMovePossible(lastMoveResult, coord, figure)) {
+            Field enPassantResultField = getBoard().getField(handle, lastMoveResult.getToField().getNumX(), y + 1*yMul);
             prePossibleMoves.add(enPassantResultField);
         }
 
         return finalPossibleMovesCheckUp(handle, prePossibleMoves, field, figure, ignoreFinalMovesCheckup);
     }
+
+    public boolean isEnPassantMovePossible(MoveResult lastMoveResult, Coord coordPawnToCheck, AbstractFigure pawnToCheck) {
+
+        final int x = coordPawnToCheck.getNumX();
+        final int y = coordPawnToCheck.getNumY();
+
+        /**
+         * influences the direction of this pawn according to the colorType
+         */
+        int yMul = 0;
+
+        /**
+         * is needed for a checkup. Only if this pawn is set to following
+         * defined value (check the switch), an en passant checkup is
+         * relevant.
+         */
+        int yEnPassant = 0;
+
+        switch (pawnToCheck.getColorType()) {
+            case ColorType.BLACK:
+                yMul = -1;
+                yEnPassant = 4;
+                break;
+            case ColorType.WHITE:
+                yMul = 1;
+                yEnPassant = 5;
+        }
+
+        return y == yEnPassant &&
+                lastMoveResult != null &&
+                lastMoveResult.getMovedFigure().isEnemyFigureOf(pawnToCheck) &&
+                lastMoveResult.getMovedFigure().getFigureType() == FigureType.PAWN &&
+                lastMoveResult.getFromField().getNumY() == yEnPassant + yMul * 2 && (
+                lastMoveResult.getToField().getNumX() + 1 == x ||
+                        lastMoveResult.getToField().getNumX() - 1 == x
+        );
+    }
+
 
     @Override
     public void performMoveTo(Handle handle, Field sourceField, Field destField, MoveResult moveResult) {

@@ -212,6 +212,11 @@ public class ChessEngineImpl implements ChessEngine {
             switchActivePlayer(handle);
         }
 
+        /**
+         * Is relevant to have a bunch of information for analysis. E.g. the fen/pgn creation
+         */
+        moveResult.setGameStateTrigger(actualGameState);
+
         return actualGameState;
     }
 

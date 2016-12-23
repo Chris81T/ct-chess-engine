@@ -21,6 +21,7 @@ package de.chrthms.chess.engine.impl;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import de.chrthms.chess.engine.Board;
 import de.chrthms.chess.engine.core.Coord;
@@ -157,22 +158,37 @@ public class BoardImpl implements Board {
     }
 
     @Override
+    public List<Field> getOccupiedFields(Handle handle, int colorType, int figureType) throws ChessEngineException {
+        return getOccupiedFields(handle, colorType)
+                .stream()
+                .filter(field -> field.getFigure().getFigureType() == figureType)
+                .collect(Collectors.toList());
+    }
+
+    @Override
     public List<Field> getEnemyOccupiedFields(Handle handle, int colorType) throws ChessEngineException {
         return determineOccupiedFields(handle, colorType, true);
     }
 
     @Override
+    public List<Field> getEnemyOccupiedFields(Handle handle, int colorType, int figureType)
+            throws ChessEngineException {
+        return getEnemyOccupiedFields(handle, colorType)
+                .stream()
+                .filter(field -> field.getFigure().getFigureType() == figureType)
+                .collect(Collectors.toList());
+    }
+
+    @Override
     public Field getKingsField(Handle handle, int colorType) throws ChessEngineException {
 
-        List<Field> fields = getOccupiedFields(handle, colorType);
-        for (Field field : fields) {
-            if (field.getFigure().getFigureType() == FigureType.KING) {
-                return field;
-            }
+        List<Field> occupiedKingFields = getOccupiedFields(handle, colorType, FigureType.KING);
+
+        if (occupiedKingFields.size() != 1) {
+            throw new ChessEngineException("At least one and only one king is expected!");
         }
 
-        // should never be reached! At least the king must exist!
-        return null;
+        return occupiedKingFields.get(0);
     }
 
     @Override

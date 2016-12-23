@@ -20,9 +20,7 @@ package de.chrthms.chess.engine.core;
 
 import java.io.Serializable;
 
-import de.chrthms.chess.engine.core.constants.CastlingType;
-import de.chrthms.chess.engine.core.constants.ColorType;
-import de.chrthms.chess.engine.core.constants.MoveResultType;
+import de.chrthms.chess.engine.core.constants.*;
 import de.chrthms.chess.engine.core.figures.AbstractFigure;
 
 public class MoveResult implements Serializable {
@@ -35,6 +33,11 @@ public class MoveResult implements Serializable {
     // simple member
     private Coord fromField = null;
     private Coord toField = null;
+
+    /**
+     * indicates, if this move is the checked or checkmate trigger. Check options of GameState
+     */
+    private int gameStateTrigger = -1;
 
     // object references
     private AbstractFigure movedFigure = null;
@@ -118,6 +121,41 @@ public class MoveResult implements Serializable {
     public void setPawnTransformation(PawnTransformation pawnTransformation) {
         this.pawnTransformation = pawnTransformation;
     }
+
+    public boolean isHitFigure() {
+        return !isNotHitFigure();
+    }
+
+    public boolean isNotHitFigure() {
+        return getHitFigure() == null;
+    }
+
+    /**
+     * TODO - Test Method will be cool ;-)
+     * @return
+     */
+    public boolean isEnPassant() {
+        return getMovedFigure().getFigureType() == FigureType.PAWN &&
+                isNotHitFigure() &&
+                getFromField().getNumX() != getToField().getNumX();
+    }
+
+    public boolean isCheckedTrigger() {
+        return getGameStateTrigger() == GameState.CHECK;
+    }
+
+    public boolean isCheckmateTrigger() {
+        return getGameStateTrigger() == GameState.CHECKMATE;
+    }
+
+    public int getGameStateTrigger() {
+        return gameStateTrigger;
+    }
+
+    public void setGameStateTrigger(int gameStateTrigger) {
+        this.gameStateTrigger = gameStateTrigger;
+    }
+
 
     @Override
     public int hashCode() {

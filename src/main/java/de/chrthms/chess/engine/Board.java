@@ -67,12 +67,32 @@ public interface Board {
     List<Field> getOccupiedFields(Handle handle, int colorType) throws ChessEngineException;
 
     /**
+     *
+     * @param handle
+     * @param colorType
+     * @param figureType
+     * @return
+     * @throws ChessEngineException
+     */
+    List<Field> getOccupiedFields(Handle handle, int colorType, int figureType) throws ChessEngineException;
+
+    /**
      * @param handle
      * @param colorType
      * @return
      * @throws ChessEngineException
      */
     List<Field> getEnemyOccupiedFields(Handle handle, int colorType) throws ChessEngineException;
+
+    /**
+     *
+     * @param handle
+     * @param colorType
+     * @param figureType
+     * @return
+     * @throws ChessEngineException
+     */
+    List<Field> getEnemyOccupiedFields(Handle handle, int colorType, int figureType) throws ChessEngineException;
 
     /**
      * @param handle

@@ -18,6 +18,7 @@
 
 package de.chrthms.chess.engine.notations.impl;
 
+import java.awt.*;
 import java.util.List;
 
 import de.chrthms.chess.engine.core.Handle;
@@ -33,8 +34,10 @@ public class PgnImpl extends AbstractNotation implements Pgn {
 
     @Override
     public String getPgn(Handle handle, int notationType) {
-        // TODO Auto-generated method stub
-        return null;
+        return new StringBuilder()
+                .append(getPgnHeaderOnly(handle))
+                .append(getPgnMovesOnly(handle, notationType))
+                .toString();
     }
 
     @Override
@@ -45,24 +48,48 @@ public class PgnImpl extends AbstractNotation implements Pgn {
 
     @Override
     public String getPgnMovesOnly(Handle handle, int notationType) {
-        // TODO Auto-generated method stub
+
+        List<MoveResult> moveResults = handle.getMoveResults();
+
+        int index = 0;
+        do {
+            // TODO HIER WAS GUTES ÜBERLEGEN....
+        } while (moveResults.size() > index);
+
         return null;
     }
 
     @Override
     public String getPgnForLastMove(Handle handle, int notationType) {
-        // TODO Auto-generated method stub
-        return null;
+        MoveResult lastMoveResult = logic.getLastMoveResult(handle);
+
+        MoveResult whiteMove = null;
+        MoveResult blackMove = null;
+
+        if (lastMoveResult.getMovedColorType() == ColorType.WHITE) {
+            whiteMove = lastMoveResult;
+        } else {
+            blackMove = lastMoveResult;
+            List<MoveResult> moveResults = handle.getMoveResults();
+            // get the penultimate move result
+            whiteMove = moveResults.get(moveResults.size() - 2);
+        }
+
+        return getPgnForMove(handle, whiteMove, blackMove, notationType);
     }
 
     @Override
     public String getPgnForMove(Handle handle, MoveResult whiteMove, MoveResult blackMove, int notationType) {
-        // TODO Auto-generated method stub
-        return null;
+        return new StringBuilder()
+                .append(getPgnForHalfmove(handle, whiteMove, notationType))
+                .append(getPgnForHalfmove(handle, blackMove, notationType))
+                .toString();
     }
 
     @Override
     public String getPgnForHalfmove(Handle handle, MoveResult moveResult, int notationType) {
+
+        if (moveResult == null) return "";
 
         StringBuilder pgnBuilder = new StringBuilder();
         List<MoveResult> moveResults = handle.getMoveResults();
@@ -85,7 +112,7 @@ public class PgnImpl extends AbstractNotation implements Pgn {
         if (NotationType.LAN == notationType) return getPgnForHalfmoveLAN(handle, moveResult, pgnBuilder);
         if (NotationType.SAN == notationType) return getPgnForHalfmoveSAN(handle, moveResult, pgnBuilder);
         // should never happen
-        return null;
+        return "";
     }
 
     private String getPgnForHalfmoveSAN(Handle handle, MoveResult moveResult, StringBuilder pgnBuilder) {
@@ -137,7 +164,6 @@ public class PgnImpl extends AbstractNotation implements Pgn {
         }
 
         return figure.toBoardString().toUpperCase();
-
     }
 
 }

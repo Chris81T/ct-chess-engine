@@ -23,16 +23,54 @@ import de.chrthms.chess.engine.core.MoveResult;
 
 public interface Pgn {
 
+    /**
+     *
+     * @param handle
+     * @param notationType
+     * @return
+     */
     String getPgn(Handle handle, int notationType);
 
+    /**
+     *
+     * @param handle
+     * @return
+     */
     String getPgnHeaderOnly(Handle handle);
 
+    /**
+     *
+     * @param handle
+     * @param notationType
+     * @return
+     */
     String getPgnMovesOnly(Handle handle, int notationType);
 
+    /**
+     *
+     * @param handle
+     * @param notationType
+     * @return
+     */
     String getPgnForLastMove(Handle handle, int notationType);
 
+    /**
+     *
+     * @param handle
+     * @param whiteMove
+     * @param blackMove (optional) if blackmove is null, only the halfmove for white will be generated.
+     * @param notationType
+     * @return
+     */
     String getPgnForMove(Handle handle, MoveResult whiteMove, MoveResult blackMove, int notationType);
 
+    /**
+     *
+     * @param handle
+     * @param moveResult
+     * @param notationType
+     * @return
+     */
     String getPgnForHalfmove(Handle handle, MoveResult moveResult, int notationType);
 
 }

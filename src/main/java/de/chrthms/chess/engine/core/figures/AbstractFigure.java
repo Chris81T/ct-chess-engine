@@ -30,7 +30,7 @@ import de.chrthms.chess.engine.core.Field;
 import de.chrthms.chess.engine.core.Handle;
 import de.chrthms.chess.engine.core.MoveResult;
 import de.chrthms.chess.engine.core.constants.ColorType;
-import de.chrthms.chess.engine.core.constants.FigurePosition;
+import de.chrthms.chess.engine.core.constants.FigurePositionType;
 import de.chrthms.chess.engine.core.constants.FigureType;
 import de.chrthms.chess.engine.impl.ChessEngineBuilder;
 
@@ -51,7 +51,7 @@ public abstract class AbstractFigure implements Serializable {
      * nice feature for statistics
      */
     private int movedCounter = 0;
-    private int initalFigurePosition = FigurePosition.REGARDLESS;
+    private int initalFigurePosition = FigurePositionType.REGARDLESS;
 
     /**
      * is relevant for a special use case

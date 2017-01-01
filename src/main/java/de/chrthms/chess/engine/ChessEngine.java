@@ -19,11 +19,9 @@
 package de.chrthms.chess.engine;
 
 import java.util.List;
+import java.util.Map;
 
-import de.chrthms.chess.engine.core.Coord;
-import de.chrthms.chess.engine.core.GameData;
-import de.chrthms.chess.engine.core.Handle;
-import de.chrthms.chess.engine.core.MoveResult;
+import de.chrthms.chess.engine.core.*;
 import de.chrthms.chess.engine.exceptions.ChessEngineException;
 
 /**
@@ -105,5 +103,7 @@ public interface ChessEngine {
      * @throws ChessEngineException
      */
     List<Coord> possibleMoves(Handle handle, Coord from) throws ChessEngineException;
+
+    List<FigurePosition> getFigurePositions(Handle handle) throws  ChessEngineException;
 
 }

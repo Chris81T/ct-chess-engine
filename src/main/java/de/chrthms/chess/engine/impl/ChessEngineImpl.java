@@ -31,12 +31,7 @@ import java.util.stream.Collectors;
 import de.chrthms.chess.engine.Board;
 import de.chrthms.chess.engine.ChessEngine;
 import de.chrthms.chess.engine.Logic;
-import de.chrthms.chess.engine.core.Coord;
-import de.chrthms.chess.engine.core.Field;
-import de.chrthms.chess.engine.core.GameData;
-import de.chrthms.chess.engine.core.Handle;
-import de.chrthms.chess.engine.core.MoveResult;
-import de.chrthms.chess.engine.core.PawnTransformation;
+import de.chrthms.chess.engine.core.*;
 import de.chrthms.chess.engine.core.constants.ColorType;
 import de.chrthms.chess.engine.core.constants.GameState;
 import de.chrthms.chess.engine.core.constants.MoveResultType;
@@ -256,6 +251,23 @@ public class ChessEngineImpl implements ChessEngine {
 
         } catch (Exception e) {
             throw handleException("Could not determine possible moves!", e);
+        }
+    }
+
+    @Override
+    public List<FigurePosition> getFigurePositions(Handle handle) throws ChessEngineException {
+        try {
+            return handle.getFields()
+                    .entrySet()
+                    .stream()
+                    .filter(entry -> entry.getValue().isOccupied())
+                    .map(entry -> new FigurePosition(entry.getValue().getFigure().getFigureType(),
+                            entry.getValue().getFigure().getColorType(),
+                            entry.getValue().getCoord().getStrCoord()))
+                    .collect(Collectors.toList());
+
+        } catch (Exception e) {
+            throw handleException("Could not determine figure positions!", e);
         }
     }
 

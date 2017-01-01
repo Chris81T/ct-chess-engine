@@ -29,7 +29,7 @@ import de.chrthms.chess.engine.core.Field;
 import de.chrthms.chess.engine.core.Handle;
 import de.chrthms.chess.engine.core.constants.ColorType;
 import de.chrthms.chess.engine.core.constants.FieldType;
-import de.chrthms.chess.engine.core.constants.FigurePosition;
+import de.chrthms.chess.engine.core.constants.FigurePositionType;
 import de.chrthms.chess.engine.core.constants.FigureType;
 import de.chrthms.chess.engine.core.figures.AbstractFigure;
 import de.chrthms.chess.engine.core.figures.Bishop;
@@ -80,14 +80,14 @@ public class BoardImpl implements Board {
     }
 
     private void buildFiguresForNewGame(Map<String, Field> fields) {
-        createNewFigureTo(fields.get(new Coord("a1").getStrCoord()), FigureType.ROOK, ColorType.WHITE, FigurePosition.LEFT_SIDE);
-        createNewFigureTo(fields.get(new Coord("b1").getStrCoord()), FigureType.KNIGHT, ColorType.WHITE, FigurePosition.LEFT_SIDE);
-        createNewFigureTo(fields.get(new Coord("c1").getStrCoord()), FigureType.BISHOP, ColorType.WHITE, FigurePosition.LEFT_SIDE);
+        createNewFigureTo(fields.get(new Coord("a1").getStrCoord()), FigureType.ROOK, ColorType.WHITE, FigurePositionType.LEFT_SIDE);
+        createNewFigureTo(fields.get(new Coord("b1").getStrCoord()), FigureType.KNIGHT, ColorType.WHITE, FigurePositionType.LEFT_SIDE);
+        createNewFigureTo(fields.get(new Coord("c1").getStrCoord()), FigureType.BISHOP, ColorType.WHITE, FigurePositionType.LEFT_SIDE);
         createNewFigureTo(fields.get(new Coord("d1").getStrCoord()), FigureType.QUEEN, ColorType.WHITE);
         createNewFigureTo(fields.get(new Coord("e1").getStrCoord()), FigureType.KING, ColorType.WHITE);
-        createNewFigureTo(fields.get(new Coord("f1").getStrCoord()), FigureType.BISHOP, ColorType.WHITE, FigurePosition.RIGHT_SIDE);
-        createNewFigureTo(fields.get(new Coord("g1").getStrCoord()), FigureType.KNIGHT, ColorType.WHITE, FigurePosition.RIGHT_SIDE);
-        createNewFigureTo(fields.get(new Coord("h1").getStrCoord()), FigureType.ROOK, ColorType.WHITE, FigurePosition.RIGHT_SIDE);
+        createNewFigureTo(fields.get(new Coord("f1").getStrCoord()), FigureType.BISHOP, ColorType.WHITE, FigurePositionType.RIGHT_SIDE);
+        createNewFigureTo(fields.get(new Coord("g1").getStrCoord()), FigureType.KNIGHT, ColorType.WHITE, FigurePositionType.RIGHT_SIDE);
+        createNewFigureTo(fields.get(new Coord("h1").getStrCoord()), FigureType.ROOK, ColorType.WHITE, FigurePositionType.RIGHT_SIDE);
 
         createNewFigureTo(fields.get(new Coord("a2").getStrCoord()), FigureType.PAWN, ColorType.WHITE);
         createNewFigureTo(fields.get(new Coord("b2").getStrCoord()), FigureType.PAWN, ColorType.WHITE);
@@ -107,14 +107,14 @@ public class BoardImpl implements Board {
         createNewFigureTo(fields.get(new Coord("g7").getStrCoord()), FigureType.PAWN, ColorType.BLACK);
         createNewFigureTo(fields.get(new Coord("h7").getStrCoord()), FigureType.PAWN, ColorType.BLACK);
 
-        createNewFigureTo(fields.get(new Coord("a8").getStrCoord()), FigureType.ROOK, ColorType.BLACK, FigurePosition.LEFT_SIDE);
-        createNewFigureTo(fields.get(new Coord("b8").getStrCoord()), FigureType.KNIGHT, ColorType.BLACK, FigurePosition.LEFT_SIDE);
-        createNewFigureTo(fields.get(new Coord("c8").getStrCoord()), FigureType.BISHOP, ColorType.BLACK, FigurePosition.LEFT_SIDE);
+        createNewFigureTo(fields.get(new Coord("a8").getStrCoord()), FigureType.ROOK, ColorType.BLACK, FigurePositionType.LEFT_SIDE);
+        createNewFigureTo(fields.get(new Coord("b8").getStrCoord()), FigureType.KNIGHT, ColorType.BLACK, FigurePositionType.LEFT_SIDE);
+        createNewFigureTo(fields.get(new Coord("c8").getStrCoord()), FigureType.BISHOP, ColorType.BLACK, FigurePositionType.LEFT_SIDE);
         createNewFigureTo(fields.get(new Coord("d8").getStrCoord()), FigureType.QUEEN, ColorType.BLACK);
         createNewFigureTo(fields.get(new Coord("e8").getStrCoord()), FigureType.KING, ColorType.BLACK);
-        createNewFigureTo(fields.get(new Coord("f8").getStrCoord()), FigureType.BISHOP, ColorType.BLACK, FigurePosition.RIGHT_SIDE);
-        createNewFigureTo(fields.get(new Coord("g8").getStrCoord()), FigureType.KNIGHT, ColorType.BLACK, FigurePosition.RIGHT_SIDE);
-        createNewFigureTo(fields.get(new Coord("h8").getStrCoord()), FigureType.ROOK, ColorType.BLACK, FigurePosition.RIGHT_SIDE);
+        createNewFigureTo(fields.get(new Coord("f8").getStrCoord()), FigureType.BISHOP, ColorType.BLACK, FigurePositionType.RIGHT_SIDE);
+        createNewFigureTo(fields.get(new Coord("g8").getStrCoord()), FigureType.KNIGHT, ColorType.BLACK, FigurePositionType.RIGHT_SIDE);
+        createNewFigureTo(fields.get(new Coord("h8").getStrCoord()), FigureType.ROOK, ColorType.BLACK, FigurePositionType.RIGHT_SIDE);
     }
 
     @Override
@@ -218,7 +218,7 @@ public class BoardImpl implements Board {
 
     @Override
     public AbstractFigure createNewFigureTo(Field field, int figureType, int colorType) throws ChessEngineException {
-        return createNewFigureTo(field, figureType, colorType, FigurePosition.REGARDLESS);
+        return createNewFigureTo(field, figureType, colorType, FigurePositionType.REGARDLESS);
     }
 
     /**

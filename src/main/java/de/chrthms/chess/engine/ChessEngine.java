@@ -104,6 +104,13 @@ public interface ChessEngine {
      */
     List<Coord> possibleMoves(Handle handle, Coord from) throws ChessEngineException;
 
+    /**
+     * The List of FigurePosition will give an overview of all active figures at the chessboard.
+     *
+     * @param handle
+     * @return a list of information about figures on a concrete field
+     * @throws ChessEngineException
+     */
     List<FigurePosition> getFigurePositions(Handle handle) throws  ChessEngineException;
 
 }

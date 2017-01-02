@@ -32,6 +32,7 @@ import de.chrthms.chess.engine.Board;
 import de.chrthms.chess.engine.ChessEngine;
 import de.chrthms.chess.engine.Logic;
 import de.chrthms.chess.engine.core.*;
+import de.chrthms.chess.engine.core.backports.StreamBuilder;
 import de.chrthms.chess.engine.core.constants.ColorType;
 import de.chrthms.chess.engine.core.constants.GameState;
 import de.chrthms.chess.engine.core.constants.MoveResultType;
@@ -244,6 +245,7 @@ public class ChessEngineImpl implements ChessEngine {
     @Override
     public List<Coord> possibleMoves(Handle handle, Coord from) throws ChessEngineException {
         try {
+
             return logic.possibleMoves(handle, board.getField(handle, from))
                     .stream()
                     .map(move -> move.getCoord())
@@ -257,6 +259,7 @@ public class ChessEngineImpl implements ChessEngine {
     @Override
     public List<FigurePosition> getFigurePositions(Handle handle) throws ChessEngineException {
         try {
+
             return handle.getFields()
                     .entrySet()
                     .stream()

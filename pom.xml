@@ -14,6 +14,14 @@
     </properties>
 
     <dependencies>
+
+        <!-- Relevant for Android clients -->
+        <dependency>
+            <groupId>net.sourceforge.streamsupport</groupId>
+            <artifactId>streamsupport</artifactId>
+            <version>1.5.3</version>
+        </dependency>
+
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
@@ -37,6 +45,8 @@
                     </execution>
                 </executions>
             </plugin>
+
+            <!-- Relevant for Android clients -->
             <plugin>
                 <groupId>net.orfjackal.retrolambda</groupId>
                 <artifactId>retrolambda-maven-plugin</artifactId>
@@ -50,6 +60,7 @@
                     </execution>
                 </executions>
             </plugin>
+
         </plugins>
     </build>
 

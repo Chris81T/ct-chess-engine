@@ -25,6 +25,7 @@ import de.chrthms.chess.engine.core.Coord;
 import de.chrthms.chess.engine.core.Field;
 import de.chrthms.chess.engine.core.Handle;
 import de.chrthms.chess.engine.core.MoveResult;
+import de.chrthms.chess.engine.core.backports.StreamBuilder;
 import de.chrthms.chess.engine.core.constants.CastlingType;
 import de.chrthms.chess.engine.core.constants.ColorType;
 import de.chrthms.chess.engine.core.constants.FigureType;
@@ -152,8 +153,7 @@ public class King extends AbstractFigure {
     @Override
     public boolean canCheck(Handle handle, AbstractFigure figure, Field field, Field kingsField,
                             boolean ignorFinalMovesCheckup) {
-        return checkBasicPossibleMoves(handle, figure, field)
-                .stream()
+        return StreamBuilder.stream(checkBasicPossibleMoves(handle, figure, field))
                 .anyMatch(move -> move.equals(kingsField));
     }
 

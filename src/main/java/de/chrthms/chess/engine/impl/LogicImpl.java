@@ -25,6 +25,7 @@ import de.chrthms.chess.engine.Logic;
 import de.chrthms.chess.engine.core.Field;
 import de.chrthms.chess.engine.core.Handle;
 import de.chrthms.chess.engine.core.MoveResult;
+import de.chrthms.chess.engine.core.backports.StreamBuilder;
 import de.chrthms.chess.engine.core.constants.GameState;
 import de.chrthms.chess.engine.core.constants.MoveResultType;
 import de.chrthms.chess.engine.core.figures.AbstractFigure;
@@ -52,8 +53,7 @@ public class LogicImpl implements Logic {
      * @return
      */
     private boolean friendlyFigureMovePossible(Handle handle, int colorType) {
-        return board.getOccupiedFields(handle, colorType)
-                .stream()
+        return StreamBuilder.stream(board.getOccupiedFields(handle, colorType))
                 .anyMatch(field -> !possibleMoves(handle, field).isEmpty());
     }
 
@@ -105,8 +105,7 @@ public class LogicImpl implements Logic {
             throws ChessEngineException {
         AbstractFigure king = kingsField.getFigure();
 
-        return board.getEnemyOccupiedFields(handle, king.getColorType())
-                .stream()
+        return StreamBuilder.stream(board.getEnemyOccupiedFields(handle, king.getColorType()))
                 .anyMatch(occupiedField -> {
                     AbstractFigure enemyFigure = occupiedField.getFigure();
                     return enemyFigure.canCheck(handle, enemyFigure, occupiedField, kingsField, ignoreFinalMovesCheckup);

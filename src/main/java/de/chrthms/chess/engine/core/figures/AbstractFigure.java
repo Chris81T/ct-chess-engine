@@ -22,17 +22,18 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
 import de.chrthms.chess.engine.Board;
 import de.chrthms.chess.engine.Logic;
 import de.chrthms.chess.engine.core.Field;
 import de.chrthms.chess.engine.core.Handle;
 import de.chrthms.chess.engine.core.MoveResult;
+import de.chrthms.chess.engine.core.backports.StreamBuilder;
 import de.chrthms.chess.engine.core.constants.ColorType;
 import de.chrthms.chess.engine.core.constants.FigurePositionType;
 import de.chrthms.chess.engine.core.constants.FigureType;
 import de.chrthms.chess.engine.impl.ChessEngineBuilder;
+import java8.util.stream.Collectors;
 
 public abstract class AbstractFigure implements Serializable {
 
@@ -133,8 +134,7 @@ public abstract class AbstractFigure implements Serializable {
     }
 
     public boolean canCheck(Handle handle, AbstractFigure figure, Field field, Field kingsField, boolean ignoreFinalMovesCheckup) {
-        return possibleMoves(handle, field, figure, ignoreFinalMovesCheckup)
-                .stream()
+        return StreamBuilder.stream(possibleMoves(handle, field, figure, ignoreFinalMovesCheckup))
                 .anyMatch(move -> move.equals(kingsField));
     }
 
@@ -207,7 +207,7 @@ public abstract class AbstractFigure implements Serializable {
         /**
          * Filter out all possible moves, where the king will be checked by the enemy
          */
-        return prePossibleMoves.stream()
+        return StreamBuilder.stream(prePossibleMoves)
                 .filter(possibleMove -> {
 
                     /**

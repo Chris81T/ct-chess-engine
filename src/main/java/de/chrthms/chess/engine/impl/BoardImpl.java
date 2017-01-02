@@ -21,12 +21,12 @@ package de.chrthms.chess.engine.impl;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 import de.chrthms.chess.engine.Board;
 import de.chrthms.chess.engine.core.Coord;
 import de.chrthms.chess.engine.core.Field;
 import de.chrthms.chess.engine.core.Handle;
+import de.chrthms.chess.engine.core.backports.StreamBuilder;
 import de.chrthms.chess.engine.core.constants.ColorType;
 import de.chrthms.chess.engine.core.constants.FieldType;
 import de.chrthms.chess.engine.core.constants.FigurePositionType;
@@ -39,6 +39,7 @@ import de.chrthms.chess.engine.core.figures.Pawn;
 import de.chrthms.chess.engine.core.figures.Queen;
 import de.chrthms.chess.engine.core.figures.Rook;
 import de.chrthms.chess.engine.exceptions.ChessEngineException;
+import java8.util.stream.Collectors;
 
 public class BoardImpl implements Board {
 
@@ -159,8 +160,7 @@ public class BoardImpl implements Board {
 
     @Override
     public List<Field> getOccupiedFields(Handle handle, int colorType, int figureType) throws ChessEngineException {
-        return getOccupiedFields(handle, colorType)
-                .stream()
+        return StreamBuilder.stream(getOccupiedFields(handle, colorType))
                 .filter(field -> field.getFigure().getFigureType() == figureType)
                 .collect(Collectors.toList());
     }
@@ -173,8 +173,7 @@ public class BoardImpl implements Board {
     @Override
     public List<Field> getEnemyOccupiedFields(Handle handle, int colorType, int figureType)
             throws ChessEngineException {
-        return getEnemyOccupiedFields(handle, colorType)
-                .stream()
+        return StreamBuilder.stream(getEnemyOccupiedFields(handle, colorType))
                 .filter(field -> field.getFigure().getFigureType() == figureType)
                 .collect(Collectors.toList());
     }

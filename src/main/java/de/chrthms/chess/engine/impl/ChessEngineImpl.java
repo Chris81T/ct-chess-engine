@@ -26,7 +26,6 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutput;
 import java.io.ObjectOutputStream;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import de.chrthms.chess.engine.Board;
 import de.chrthms.chess.engine.ChessEngine;
@@ -38,6 +37,7 @@ import de.chrthms.chess.engine.core.constants.GameState;
 import de.chrthms.chess.engine.core.constants.MoveResultType;
 import de.chrthms.chess.engine.core.figures.AbstractFigure;
 import de.chrthms.chess.engine.exceptions.ChessEngineException;
+import java8.util.stream.Collectors;
 
 public class ChessEngineImpl implements ChessEngine {
 
@@ -246,8 +246,7 @@ public class ChessEngineImpl implements ChessEngine {
     public List<Coord> possibleMoves(Handle handle, Coord from) throws ChessEngineException {
         try {
 
-            return logic.possibleMoves(handle, board.getField(handle, from))
-                    .stream()
+            return StreamBuilder.stream(logic.possibleMoves(handle, board.getField(handle, from)))
                     .map(move -> move.getCoord())
                     .collect(Collectors.toList());
 
@@ -260,9 +259,8 @@ public class ChessEngineImpl implements ChessEngine {
     public List<FigurePosition> getFigurePositions(Handle handle) throws ChessEngineException {
         try {
 
-            return handle.getFields()
-                    .entrySet()
-                    .stream()
+            return StreamBuilder.stream(handle.getFields()
+                    .entrySet())
                     .filter(entry -> entry.getValue().isOccupied())
                     .map(entry -> new FigurePosition(entry.getValue().getFigure().getFigureType(),
                             entry.getValue().getFigure().getColorType(),

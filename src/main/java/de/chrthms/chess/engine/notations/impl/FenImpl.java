@@ -19,17 +19,18 @@
 package de.chrthms.chess.engine.notations.impl;
 
 import java.util.List;
-import java.util.Optional;
 
 import de.chrthms.chess.engine.core.Field;
 import de.chrthms.chess.engine.core.Handle;
 import de.chrthms.chess.engine.core.MoveResult;
+import de.chrthms.chess.engine.core.backports.StreamBuilder;
 import de.chrthms.chess.engine.core.constants.CastlingType;
 import de.chrthms.chess.engine.core.constants.ColorType;
 import de.chrthms.chess.engine.core.constants.FigureType;
 import de.chrthms.chess.engine.core.figures.AbstractFigure;
 import de.chrthms.chess.engine.core.figures.Pawn;
 import de.chrthms.chess.engine.notations.Fen;
+import java8.util.Optional;
 
 /**
  * @author Christian Thomas
@@ -167,8 +168,7 @@ public class FenImpl extends AbstractNotation implements Fen {
         List<Field> friendlyPawnFields = board.getOccupiedFields(handle, handle.getActivePlayer(), FigureType.PAWN);
         final MoveResult lastMoveResult = logic.getLastMoveResult(handle);
 
-        Optional<Field> pawnField = friendlyPawnFields
-                .stream()
+        Optional<Field> pawnField = StreamBuilder.stream(friendlyPawnFields)
                 .filter(field -> {
                     Pawn pawn = (Pawn) field.getFigure();
                     return pawn.isEnPassantMovePossible(lastMoveResult, field.getCoord(), pawn);

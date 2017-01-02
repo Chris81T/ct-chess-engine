@@ -20,12 +20,13 @@ package de.chrthms.chess.engine.core.figures;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import de.chrthms.chess.engine.core.Coord;
 import de.chrthms.chess.engine.core.Field;
 import de.chrthms.chess.engine.core.Handle;
+import de.chrthms.chess.engine.core.backports.StreamBuilder;
 import de.chrthms.chess.engine.core.constants.FigureType;
+import java8.util.stream.Collectors;
 
 public class Knight extends AbstractFigure {
 
@@ -50,7 +51,7 @@ public class Knight extends AbstractFigure {
         fieldsToCheck.add(getBoard().getField(handle, x - 1, y - 2));
         fieldsToCheck.add(getBoard().getField(handle, x - 2, y - 1));
 
-        List<Field> prePossibleMoves = fieldsToCheck.stream()
+        List<Field> prePossibleMoves = StreamBuilder.stream(fieldsToCheck)
                 .filter(fieldToCheck -> fieldToCheck != null)
                 .filter(fieldToCheck -> fieldToCheck.isEmpty() || figure.isEnemyFigureOf(fieldToCheck.getFigure()))
                 .collect(Collectors.toList());

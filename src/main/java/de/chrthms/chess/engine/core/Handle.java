@@ -62,6 +62,14 @@ public class Handle implements Serializable {
         return activePlayer;
     }
 
+    public boolean isBlackActivePlayer() {
+        return ColorType.BLACK == getActivePlayer();
+    }
+
+    public boolean isWhiteActivePlayer() {
+        return ColorType.WHITE == getActivePlayer();
+    }
+
     public void setActivePlayer(int activePlayer) {
         this.activePlayer = activePlayer;
     }

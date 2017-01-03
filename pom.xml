@@ -15,7 +15,7 @@
 
     <dependencies>
 
-        <!-- Relevant for Android clients -->
+        <!-- Relevant for Android clients - Backport for Java8 Stream API -->
         <dependency>
             <groupId>net.sourceforge.streamsupport</groupId>
             <artifactId>streamsupport</artifactId>
@@ -46,7 +46,7 @@
                 </executions>
             </plugin>
 
-            <!-- Relevant for Android clients -->
+            <!-- Relevant for Android clients - Backport for Java8 Lambdas -->
             <plugin>
                 <groupId>net.orfjackal.retrolambda</groupId>
                 <artifactId>retrolambda-maven-plugin</artifactId>

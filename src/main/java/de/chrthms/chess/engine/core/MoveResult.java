@@ -43,6 +43,8 @@ public class MoveResult implements Serializable {
     private AbstractFigure movedFigure = null;
     private AbstractFigure hitFigure = null;
 
+    private MoveResult lastMoveResult = null;
+
     /**
      * if a pawn transformation is possible, this field will be instantiated by the engine
      */
@@ -130,14 +132,26 @@ public class MoveResult implements Serializable {
         return getHitFigure() == null;
     }
 
+    public MoveResult getLastMoveResult() {
+        return lastMoveResult;
+    }
+
+    public void setLastMoveResult(MoveResult lastMoveResult) {
+        this.lastMoveResult = lastMoveResult;
+    }
+
     /**
-     * TODO - Test Method will be cool ;-)
+     * En Passant is the only move, where the 'to' field of the pawn is not equal with the origin field of the hit
+     * figure (here a pawn).
+     *
      * @return
      */
     public boolean isEnPassant() {
         return getMovedFigure().getFigureType() == FigureType.PAWN &&
-                isNotHitFigure() &&
-                getFromField().getNumX() != getToField().getNumX();
+                isHitFigure() &&
+                lastMoveResult.getMovedFigure().getFigureType() == FigureType.PAWN &&
+                lastMoveResult.getToField().getNumY() != getToField().getNumY() &&
+                lastMoveResult.getToField().getNumX() == getToField().getNumX();
     }
 
     public boolean isCheckedTrigger() {

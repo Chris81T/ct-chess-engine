@@ -272,4 +272,9 @@ public class ChessEngineImpl implements ChessEngine {
         }
     }
 
+    @Override
+    public Coord getKingsField(Handle handle, int figureColor) throws ChessEngineException {
+        return board.getKingsField(handle, figureColor).getCoord();
+    }
+
 }

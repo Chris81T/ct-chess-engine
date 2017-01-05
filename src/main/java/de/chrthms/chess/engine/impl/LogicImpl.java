@@ -143,6 +143,7 @@ public class LogicImpl implements Logic {
         moveResult.setMovedFigure(figureToMove);
         moveResult.setFromField(sourceField.getCoord());
         moveResult.setToField(destField.getCoord());
+        moveResult.setLastMoveResult(getLastMoveResult(handle));
 
         figureToMove.performMoveTo(handle, sourceField, destField, moveResult);
         handle.addMoveResult(moveResult);

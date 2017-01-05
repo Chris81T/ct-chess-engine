@@ -113,4 +113,14 @@ public interface ChessEngine {
      */
     List<FigurePosition> getFigurePositions(Handle handle) throws  ChessEngineException;
 
+    /**
+     * Will give the coordinate of the kings field according to given figureColor.
+     *
+     * @param handle
+     * @param figureColor
+     * @return coordinate of the desired kings field
+     * @throws ChessEngineException
+     */
+    Coord getKingsField(Handle handle, int figureColor)  throws ChessEngineException;
+
 }

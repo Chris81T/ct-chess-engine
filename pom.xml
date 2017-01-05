@@ -5,7 +5,7 @@
 
     <groupId>de.chrthms.chess</groupId>
     <artifactId>ct-chess-engine</artifactId>
-    <version>0.0.7-SNAPSHOT</version>
+    <version>0.9.0-SNAPSHOT</version>
     <packaging>jar</packaging>
 
     <properties>

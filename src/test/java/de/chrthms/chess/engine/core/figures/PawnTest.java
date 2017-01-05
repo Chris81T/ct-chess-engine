@@ -79,6 +79,17 @@ public class PawnTest extends AbstractBeforeTest {
         dumpBoard("moveEnPassant after");
         assertMovedFigure(result, "d6");
         assertTrue(blackPawn.getId().equals(assertHitFigure(result).getId()));
+        assertTrue(result.isEnPassant());
+    }
+
+    @Test
+    public void testMoveNonEnPassant() {
+        moveToAndComplete("e2", "e4");
+        moveToAndComplete("d7", "d5");
+        MoveResult pawnMoveResult = moveTo("e4", "d5");
+        assertNotNull(pawnMoveResult);
+        completeMove(pawnMoveResult);
+        assertFalse(pawnMoveResult.isEnPassant());
     }
 
     @Test

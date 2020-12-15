@@ -29,7 +29,7 @@ import de.chrthms.chess.engine.impl.ChessEngineBuilder;
 /**
  * possible moves and performMoveTo are tested in the ChessEngineTest. Check the code.
  *
- * @author p0514551
+ * @author Christian Thomas
  */
 public class LogicTest extends AbstractBeforeTest {
 
